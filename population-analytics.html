@@ -367,25 +367,25 @@ canvas.clickable{cursor:pointer;}
   </div>
 
   <div class="kpi-grid">
-    <div class="kpi k-blue">
+    <div class="kpi k-blue" style="cursor:pointer;" ondblclick="drillOpen('Total Patients', 'Registered in ProstaCare', ALL_PT, mkStats(ALL_PT))">
       <div class="kpi-label">Total Patients</div>
       <div class="kpi-val">347</div>
       <div class="kpi-sub">Registered in ProstaCare</div>
       <div class="kpi-delta up">↑ 18 this month</div>
     </div>
-    <div class="kpi k-red">
+    <div class="kpi k-red" style="cursor:pointer;" ondblclick="drillOpen('High Risk / Very High', 'Patients flagged as high priority', ALL_PT.filter(p=>p.risk==='High'||p.risk==='Very High'), mkStats(ALL_PT.filter(p=>p.risk==='High'||p.risk==='Very High')))">
       <div class="kpi-label">High Risk / Very High</div>
       <div class="kpi-val">142</div>
       <div class="kpi-sub">41% of total cohort</div>
       <div class="kpi-delta dn">↑ 6 from last month</div>
     </div>
-    <div class="kpi k-amber">
+    <div class="kpi k-amber" style="cursor:pointer;" ondblclick="drillOpen('Active ADT', 'Patients actively on hormone therapy', ALL_PT.filter(p=>p.adt==='Yes'), mkStats(ALL_PT.filter(p=>p.adt==='Yes')))">
       <div class="kpi-label">Active ADT</div>
       <div class="kpi-val">198</div>
       <div class="kpi-sub">57% of cohort on ADT</div>
       <div class="kpi-delta neu">→ Stable</div>
     </div>
-    <div class="kpi k-teal">
+    <div class="kpi k-teal" style="cursor:pointer;" ondblclick="drillOpen('Cohort PSA', 'All registered patients', ALL_PT, mkStats(ALL_PT))">
       <div class="kpi-label">Median PSA (Latest)</div>
       <div class="kpi-val">18.4</div>
       <div class="kpi-sub">ng/mL · cohort median</div>
@@ -394,25 +394,25 @@ canvas.clickable{cursor:pointer;}
   </div>
 
   <div class="kpi-grid" style="margin-bottom:1.25rem;">
-    <div class="kpi k-purple">
+    <div class="kpi k-purple" style="cursor:pointer;" ondblclick="drillOpen('Awaiting Treatment', 'Patients staged and waiting to start', ALL_PT.slice(0, 34), mkStats(ALL_PT.slice(0, 34)))">
       <div class="kpi-label">Awaiting Treatment Start</div>
       <div class="kpi-val">34</div>
       <div class="kpi-sub">Staged, plan agreed</div>
       <div class="kpi-delta dn">12 CGHS approval pending</div>
     </div>
-    <div class="kpi k-red">
+    <div class="kpi k-red" style="cursor:pointer;" ondblclick="drillOpen('Care Gap Flagged', 'Patients with missing interventions', ALL_PT.filter(p=>p.gap), mkStats(ALL_PT.filter(p=>p.gap)))">
       <div class="kpi-label">Care Gap Flagged</div>
       <div class="kpi-val">63</div>
       <div class="kpi-sub">Missing bone scan/bone Rx/DEXA</div>
       <div class="kpi-delta dn">↑ needs review</div>
     </div>
-    <div class="kpi k-teal">
+    <div class="kpi k-teal" style="cursor:pointer;" ondblclick="drillOpen('Completed / Surveillance', 'Patients on follow-up', ALL_PT.filter(p=>p.trt==='Active Surv.'||p.trt==='Watchful Wait'), mkStats(ALL_PT.filter(p=>p.trt==='Active Surv.'||p.trt==='Watchful Wait')))">
       <div class="kpi-label">Completed / Surveillance</div>
       <div class="kpi-val">115</div>
       <div class="kpi-sub">Post-treatment follow-up</div>
       <div class="kpi-delta up">↑ 8 this month</div>
     </div>
-    <div class="kpi k-amber">
+    <div class="kpi k-amber" style="cursor:pointer;" ondblclick="drillOpen('Median Age', 'All registered patients', ALL_PT, mkStats(ALL_PT))">
       <div class="kpi-label">Median Age</div>
       <div class="kpi-val">66</div>
       <div class="kpi-sub">Range: 44–89 yrs</div>
