@@ -1395,6 +1395,12 @@
       gap: 10px;
     }
 
+    .team-log-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
     .log-entry {
       border: 1px solid var(--border);
       border-radius: var(--r-lg);
@@ -1524,6 +1530,428 @@
       border: 1px solid var(--border);
       border-radius: var(--r);
       padding: 10px 12px;
+    }
+
+    .team-panel {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      background: var(--bg-raised);
+      padding: 14px;
+    }
+
+    .team-panel-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--tm);
+      margin-bottom: 10px;
+    }
+
+    .team-inline-note {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--ts);
+      line-height: 1.5;
+    }
+
+    .team-member-fields {
+      margin-top: 12px;
+      display: none;
+    }
+
+    .team-member-fields.on {
+      display: block;
+    }
+
+    .team-search-wrap {
+      position: relative;
+    }
+
+    .team-suggest {
+      display: none;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: calc(100% + 6px);
+      z-index: 12;
+      background: var(--bg-card);
+      border: 1px solid var(--border-m);
+      border-radius: var(--r);
+      box-shadow: 0 16px 36px rgba(35, 53, 71, 0.12);
+      max-height: 220px;
+      overflow-y: auto;
+    }
+
+    .team-suggest.on {
+      display: block;
+    }
+
+    .team-suggest-item {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+      padding: 10px 12px;
+      font-family: var(--ff);
+    }
+
+    .team-suggest-item:last-child {
+      border-bottom: none;
+    }
+
+    .team-suggest-item:hover {
+      background: var(--bg-high);
+    }
+
+    .team-suggest-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--tp);
+      margin-bottom: 2px;
+    }
+
+    .team-suggest-meta {
+      font-size: 10px;
+      color: var(--ts);
+      line-height: 1.5;
+      font-family: var(--fm);
+    }
+
+    .team-check {
+      margin-top: 10px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--ts);
+      line-height: 1.5;
+    }
+
+    .team-check input {
+      margin-top: 2px;
+      accent-color: var(--teal);
+      flex-shrink: 0;
+    }
+
+    .team-status {
+      min-height: 18px;
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--tm);
+      line-height: 1.45;
+    }
+
+    .team-status.ok {
+      color: var(--teal);
+    }
+
+    .team-status.warn {
+      color: var(--amber);
+    }
+
+    .team-status.error {
+      color: var(--red);
+    }
+
+    .team-toast {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 680;
+      min-width: 280px;
+      max-width: min(420px, calc(100vw - 44px));
+      padding: 12px 14px;
+      border-radius: var(--r-lg);
+      border: 1px solid var(--teal-b);
+      background: rgba(255, 255, 255, 0.98);
+      color: var(--tp);
+      box-shadow: 0 18px 40px rgba(35, 53, 71, 0.14);
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+
+    .team-toast.on {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #team-preview-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 8, 16, .66);
+      z-index: 690;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .22s ease;
+    }
+
+    #team-preview-overlay.on {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    #team-preview-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -48%) scale(.98);
+      width: min(860px, 95vw);
+      max-height: 88vh;
+      overflow: hidden;
+      background: var(--bg-card);
+      border: 1px solid var(--border-m);
+      border-radius: var(--r-xl);
+      box-shadow: 0 26px 80px rgba(0, 0, 0, 0.18);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform .24s ease, opacity .24s ease;
+    }
+
+    #team-preview-overlay.on #team-preview-modal {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .preview-head {
+      padding: 1.1rem 1.3rem 1rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .preview-body {
+      padding: 1rem 1.3rem 1.3rem;
+      overflow-y: auto;
+      max-height: calc(88vh - 88px);
+    }
+
+    .preview-mail {
+      border: 1px solid var(--border-m);
+      border-radius: var(--r-xl);
+      background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, #FFFFFF 100%);
+      box-shadow: 0 16px 42px rgba(35, 53, 71, 0.08);
+      overflow: hidden;
+    }
+
+    .preview-mail-top {
+      padding: 1rem 1.1rem;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(110,126,235,0.08) 0%, rgba(255,255,255,0.98) 90%);
+    }
+
+    .preview-mail-subject {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--tp);
+      line-height: 1.35;
+      margin-bottom: 10px;
+    }
+
+    .preview-mail-meta {
+      display: grid;
+      grid-template-columns: 68px 1fr;
+      gap: 6px 12px;
+      font-size: 12px;
+      color: var(--ts);
+      line-height: 1.55;
+    }
+
+    .preview-mail-meta strong {
+      color: var(--tp);
+      font-weight: 600;
+    }
+
+    .preview-mail-content {
+      padding: 1.1rem;
+    }
+
+    .preview-mail-copy {
+      font-size: 13px;
+      color: var(--ts);
+      line-height: 1.75;
+    }
+
+    .preview-summary {
+      margin-top: 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      background: var(--bg-raised);
+      padding: 14px;
+    }
+
+    .preview-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .preview-kv {
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      background: rgba(255,255,255,0.92);
+      padding: 10px 11px;
+    }
+
+    .preview-kv-k {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--tm);
+      margin-bottom: 4px;
+    }
+
+    .preview-kv-v {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--tp);
+      font-family: var(--fm);
+    }
+
+    .preview-cta {
+      margin-top: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: var(--r);
+      background: var(--teal);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .preview-disclaimer {
+      margin-top: 12px;
+      font-size: 11px;
+      color: var(--tm);
+      line-height: 1.5;
+    }
+
+    .team-link-btn {
+      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0;
+      border: none;
+      background: none;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      font-family: var(--ff);
+    }
+
+    .rx-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .rx-copy {
+      font-size: 12px;
+      color: var(--ts);
+      line-height: 1.6;
+      max-width: 720px;
+    }
+
+    .rx-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .rx-item {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      background: var(--bg-raised);
+      padding: 12px 14px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .rx-item-main {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .rx-item-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--tp);
+      margin-bottom: 4px;
+      word-break: break-word;
+    }
+
+    .rx-item-meta {
+      font-size: 10px;
+      color: var(--tm);
+      font-family: var(--fm);
+      line-height: 1.6;
+    }
+
+    .rx-item-note {
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--ts);
+      line-height: 1.5;
+    }
+
+    .rx-actions {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+      align-items: center;
+    }
+
+    .rx-link-btn {
+      padding: 0;
+      border: none;
+      background: none;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      font-family: var(--ff);
+    }
+
+    .rx-link-btn.danger {
+      color: var(--red);
+    }
+
+    .rx-status {
+      min-height: 18px;
+      margin-top: 8px;
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--tm);
+    }
+
+    .rx-status.ok {
+      color: var(--teal);
+    }
+
+    .rx-status.error {
+      color: var(--red);
     }
 
     @keyframes fadeUp {
@@ -2260,6 +2688,8 @@
           <button class="gl-dd-btn" onclick="glOpen('refs')">📚 References</button>
         </div>
       </div>
+      <button class="hdr-btn" type="button" onclick="triggerRxUpload()">Upload Rx</button>
+      <button class="hdr-btn" onclick="openTeamModal()">Discuss with Team</button>
       <button class="hdr-btn" onclick="window.print()">Print Summary</button>
     </div>
   </header>
@@ -3078,6 +3508,28 @@
           </div>
         </div>
       </div>
+
+      <div class="card">
+        <div class="card-title">
+          <div class="card-title-dot" style="background:var(--blue);"></div>Rx / Prescription Uploads
+        </div>
+        <div class="rx-toolbar">
+          <div class="rx-copy">
+            Upload scanned prescriptions, discharge medication sheets, or oncology Rx files for this patient. Files stay
+            attached to this patient record in the demo browser.
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <input type="file" id="rx-upload-input" accept=".pdf,image/*" multiple style="display:none;"
+              onchange="handleRxUpload(event)">
+            <button class="btn-ghost" type="button" onclick="triggerRxUpload()">Upload Rx</button>
+          </div>
+        </div>
+        <div id="rx-status" class="rx-status"></div>
+        <div id="rx-list" class="rx-list">
+          <div class="log-empty">No prescription files uploaded for this patient yet.</div>
+        </div>
+      </div>
+
       <div class="form-footer">
         <button class="btn-ghost">Clear</button>
         <button class="btn-primary" onclick="computeNudges()">Save &amp; Refresh Nudges</button>
@@ -3245,8 +3697,130 @@
         <div class="acked-item"><span class="ack-check">✓</span><span class="ack-text">CGHS pre-authorisation for ADT
             and RT initiated at AIIMS</span><span class="ack-date">2 Apr 2024</span></div>
       </div>
+
+      <div class="card" style="margin-top:1rem;">
+        <div class="card-title">
+          <div class="card-title-dot" style="background:var(--blue);"></div>Team Discussion Log
+        </div>
+        <div id="team-log-list" class="team-log-list">
+          <div class="log-empty">No team notifications sent for this patient yet.</div>
+        </div>
+      </div>
     </div>
   </main>
+
+  <div id="log-overlay" onclick="logOverlayClick(event)">
+    <div id="log-modal" role="dialog" aria-modal="true" aria-labelledby="log-modal-title">
+      <div id="log-modal-head">
+        <div>
+          <div id="log-modal-title" style="font-family:var(--fh);font-size:18px;font-weight:600;color:var(--tp);">
+            Discuss with Team
+          </div>
+          <div id="log-modal-sub" style="font-size:12px;color:var(--ts);margin-top:4px;">
+            Send a focused notification to the MDT or one team member and keep a visible audit trail on this patient
+            file.
+          </div>
+          <div class="log-context" id="log-context-chips"></div>
+        </div>
+        <button type="button" class="log-close" onclick="logClose()" aria-label="Close team discussion modal">✕</button>
+      </div>
+      <div id="log-modal-body">
+        <div id="team-source-box" class="log-context-text" style="display:none;"></div>
+
+        <div class="team-panel">
+          <div class="team-panel-title">Recipients</div>
+          <div class="chip-group">
+            <button type="button" class="chip team-mode-btn" data-team-mode="member" onclick="setTeamMode('member')">Send to specific member</button>
+            <button type="button" class="chip team-mode-btn" data-team-mode="all" onclick="setTeamMode('all')">Send to all MDT members</button>
+          </div>
+          <div id="team-bulk-note" class="team-inline-note" style="display:none;">
+            This will notify every configured MDT member for Urology &amp; Radiation Oncology.
+          </div>
+          <div id="team-member-fields" class="team-member-fields">
+            <div class="form-grid form-grid-2" style="margin-bottom:0;">
+              <div class="fg">
+                <label class="fl">Team member name</label>
+                <div class="team-search-wrap">
+                  <input type="text" id="team-member-name" placeholder="Start typing a clinician name"
+                    autocomplete="off" oninput="handleTeamMemberSearch()" onfocus="handleTeamMemberSearch()">
+                  <div id="team-suggest" class="team-suggest"></div>
+                </div>
+              </div>
+              <div class="fg">
+                <label class="fl">Resolved email</label>
+                <input type="email" id="team-member-email" readonly placeholder="Auto-selected from team directory">
+              </div>
+            </div>
+            <div id="team-member-status" class="team-status">Search by name and pick the matching team member.</div>
+          </div>
+        </div>
+
+        <div class="team-panel" style="margin-top:12px;">
+          <div class="team-panel-title">Message</div>
+          <div class="form-grid form-grid-2">
+            <div class="fg">
+              <label class="fl">Reason</label>
+              <select id="team-reason">
+                <option value="">Select a reason</option>
+                <option>Urgent review</option>
+                <option>Care gap</option>
+                <option>Treatment decision</option>
+                <option>MDT discussion</option>
+                <option>FYI</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label class="fl">Subject line</label>
+              <input type="text" id="team-subject" placeholder="Short discussion headline">
+            </div>
+          </div>
+          <div class="fg">
+            <label class="fl">Note</label>
+            <textarea id="team-note" rows="4" placeholder="Add the key clinical point or request for the team"></textarea>
+          </div>
+          <label class="team-check">
+            <input type="checkbox" id="team-include-summary" checked>
+            <span>Include a secure patient summary link in the notification</span>
+          </label>
+          <div class="form-grid form-grid-2" style="margin-top:12px;margin-bottom:0;">
+            <div class="fg">
+              <label class="fl">Demo recipient email</label>
+              <input type="email" id="team-preview-email" placeholder="Enter an email to preview the received notification">
+            </div>
+            <div class="fg" style="justify-content:flex-end;">
+              <label class="fl" style="opacity:0;">Preview</label>
+              <button class="btn-ghost" type="button" onclick="previewCurrentNotification()">Preview received email</button>
+            </div>
+          </div>
+          <div id="team-form-status" class="team-status"></div>
+        </div>
+
+        <div class="form-footer">
+          <button class="btn-ghost" type="button" onclick="logClose()">Cancel</button>
+          <button class="btn-primary" type="button" onclick="sendTeamNotification()">Send to Team</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="team-toast" class="team-toast" aria-live="polite"></div>
+
+  <div id="team-preview-overlay" onclick="teamPreviewOverlayClick(event)">
+    <div id="team-preview-modal" role="dialog" aria-modal="true" aria-labelledby="team-preview-title">
+      <div class="preview-head">
+        <div>
+          <div id="team-preview-title" style="font-family:var(--fh);font-size:18px;font-weight:600;color:var(--tp);">
+            Recipient Notification Preview
+          </div>
+          <div style="font-size:12px;color:var(--ts);margin-top:4px;">
+            Demo-only preview of how the notification email would look to the recipient.
+          </div>
+        </div>
+        <button type="button" class="log-close" onclick="closeTeamPreview()" aria-label="Close notification preview">✕</button>
+      </div>
+      <div class="preview-body" id="team-preview-body"></div>
+    </div>
+  </div>
 
   <div id="gl-overlay" onclick="glOverlayClick(event)">
     <div id="gl-modal" role="dialog" aria-modal="true" aria-labelledby="gl-modal-title">
@@ -3464,6 +4038,708 @@
       age: 68
     };
 
+    const TEAM_DIRECTORY = [
+      { name: "Dr. Meera Khanna", email: "meera.khanna@aiims.edu", role: "Radiation Oncology" },
+      { name: "Dr. Rajiv Mehta", email: "rajiv.mehta@aiims.edu", role: "Medical Oncology" },
+      { name: "Dr. Neha Suri", email: "neha.suri@aiims.edu", role: "Onco-radiology" },
+      { name: "Dr. Vivek Nanda", email: "vivek.nanda@aiims.edu", role: "Nuclear Medicine" },
+      { name: "Dr. Asha Menon", email: "asha.menon@aiims.edu", role: "Uro-oncology Nurse Specialist" }
+    ];
+    const TEAM_PREFS_KEY = "prostacare.team.notifyPrefs";
+    const RX_DB_NAME = "prostacare-demo";
+    const RX_STORE_NAME = "rxDocs";
+
+    let currentPatientContext = { ...DEFAULT_PATIENT };
+    let latestNudges = [];
+    let teamDiscussionContext = { sourceType: "manual", sourceTitle: "", sourceBody: "" };
+    let currentTeamMode = "member";
+    let selectedTeamMember = null;
+    let teamToastTimer = null;
+    let currentPreviewPayload = null;
+    let rxDbPromise = null;
+
+    function normalizePatientContext(selected = {}) {
+      const fullName = selected.fullName || selected.name || DEFAULT_PATIENT.fullName;
+      const shortName = selected.shortName || fullName || DEFAULT_PATIENT.shortName;
+      const age = Number(selected.age) || DEFAULT_PATIENT.age;
+      const initials = selected.initials
+        || fullName.split(/\s+/).filter(Boolean).map((part) => part[0]).join("").slice(0, 3).toUpperCase()
+        || DEFAULT_PATIENT.initials;
+
+      return {
+        ...DEFAULT_PATIENT,
+        ...selected,
+        fullName,
+        shortName,
+        initials,
+        age,
+        uhid: selected.uhid || selected.id || DEFAULT_PATIENT.uhid,
+        abha: selected.abha || DEFAULT_PATIENT.abha,
+        phone: selected.phone || DEFAULT_PATIENT.phone,
+        dobLabel: selected.dobLabel || DEFAULT_PATIENT.dobLabel,
+        dobIso: selected.dobIso || DEFAULT_PATIENT.dobIso
+      };
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function stripHtml(html) {
+      const div = document.createElement("div");
+      div.innerHTML = html;
+      return (div.textContent || div.innerText || "").replace(/\s+/g, " ").trim();
+    }
+
+    function getCurrentPatientContext() {
+      return { ...currentPatientContext };
+    }
+
+    function getTeamPrefs() {
+      try {
+        return JSON.parse(localStorage.getItem(TEAM_PREFS_KEY) || "{}");
+      } catch (error) {
+        return {};
+      }
+    }
+
+    function saveTeamPrefs(prefs) {
+      localStorage.setItem(TEAM_PREFS_KEY, JSON.stringify(prefs));
+    }
+
+    function getTeamLogStorageKey() {
+      return `prostacare.team.notifications.${getCurrentPatientContext().uhid || "pending"}`;
+    }
+
+    function loadTeamNotifications() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(getTeamLogStorageKey()) || "[]");
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function saveTeamNotifications(entries) {
+      localStorage.setItem(getTeamLogStorageKey(), JSON.stringify(entries));
+    }
+
+    function formatNotificationTime(iso) {
+      const date = new Date(iso);
+      return Number.isNaN(date.getTime())
+        ? "Just now"
+        : date.toLocaleString("en-IN", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+          hour: "numeric",
+          minute: "2-digit"
+        });
+    }
+
+    function formatBytes(bytes) {
+      if (!Number.isFinite(bytes) || bytes <= 0) return "0 B";
+      const units = ["B", "KB", "MB", "GB"];
+      const order = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), units.length - 1);
+      const value = bytes / Math.pow(1024, order);
+      return `${value >= 10 || order === 0 ? value.toFixed(0) : value.toFixed(1)} ${units[order]}`;
+    }
+
+    function getRxPatientKey() {
+      return getCurrentPatientContext().uhid || "pending";
+    }
+
+    function openRxDb() {
+      if (rxDbPromise) return rxDbPromise;
+      rxDbPromise = new Promise((resolve, reject) => {
+        const request = indexedDB.open(RX_DB_NAME, 1);
+        request.onupgradeneeded = () => {
+          const db = request.result;
+          if (!db.objectStoreNames.contains(RX_STORE_NAME)) {
+            const store = db.createObjectStore(RX_STORE_NAME, { keyPath: "id" });
+            store.createIndex("patientUhid", "patientUhid", { unique: false });
+          }
+        };
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error || new Error("Unable to open Rx document store"));
+      });
+      return rxDbPromise;
+    }
+
+    async function readRxDocsForPatient() {
+      const db = await openRxDb();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(RX_STORE_NAME, "readonly");
+        const store = tx.objectStore(RX_STORE_NAME);
+        const index = store.index("patientUhid");
+        const request = index.getAll(getRxPatientKey());
+        request.onsuccess = () => {
+          const rows = Array.isArray(request.result) ? request.result : [];
+          rows.sort((a, b) => new Date(b.uploadedAt) - new Date(a.uploadedAt));
+          resolve(rows);
+        };
+        request.onerror = () => reject(request.error || new Error("Unable to load Rx files"));
+      });
+    }
+
+    async function saveRxDoc(record) {
+      const db = await openRxDb();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(RX_STORE_NAME, "readwrite");
+        tx.objectStore(RX_STORE_NAME).put(record);
+        tx.oncomplete = () => resolve(record);
+        tx.onerror = () => reject(tx.error || new Error("Unable to save Rx file"));
+      });
+    }
+
+    async function getRxDoc(id) {
+      const db = await openRxDb();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(RX_STORE_NAME, "readonly");
+        const request = tx.objectStore(RX_STORE_NAME).get(id);
+        request.onsuccess = () => resolve(request.result || null);
+        request.onerror = () => reject(request.error || new Error("Unable to read Rx file"));
+      });
+    }
+
+    async function deleteRxDoc(id) {
+      const db = await openRxDb();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(RX_STORE_NAME, "readwrite");
+        tx.objectStore(RX_STORE_NAME).delete(id);
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error || new Error("Unable to remove Rx file"));
+      });
+    }
+
+    function setRxStatus(message = "", tone = "") {
+      const node = document.getElementById("rx-status");
+      if (!node) return;
+      node.textContent = message;
+      node.className = `rx-status${tone ? ` ${tone}` : ""}`;
+    }
+
+    function triggerRxUpload() {
+      const input = document.getElementById("rx-upload-input");
+      if (input) input.click();
+    }
+
+    async function renderRxList() {
+      const list = document.getElementById("rx-list");
+      if (!list) return;
+      try {
+        const docs = await readRxDocsForPatient();
+        if (!docs.length) {
+          list.innerHTML = '<div class="log-empty">No prescription files uploaded for this patient yet.</div>';
+          return;
+        }
+        list.innerHTML = docs.map((doc) => `
+          <div class="rx-item">
+            <div class="rx-item-main">
+              <div class="rx-item-title">${escapeHtml(doc.name)}</div>
+              <div class="rx-item-meta">${escapeHtml(formatNotificationTime(doc.uploadedAt))} · ${escapeHtml(doc.mimeType || "Unknown type")} · ${escapeHtml(formatBytes(doc.size || 0))}</div>
+              <div class="rx-item-note">Attached to ${escapeHtml(doc.patientUhid)} · ${escapeHtml(doc.category || "Prescription / Rx")}</div>
+            </div>
+            <div class="rx-actions">
+              <button type="button" class="rx-link-btn" onclick="openRxDoc('${doc.id}')">Open</button>
+              <button type="button" class="rx-link-btn danger" onclick="removeRxDoc('${doc.id}')">Remove</button>
+            </div>
+          </div>
+        `).join("");
+      } catch (error) {
+        console.error(error);
+        list.innerHTML = '<div class="log-empty">Unable to load Rx files in this browser session.</div>';
+        setRxStatus("Unable to load uploaded Rx files.", "error");
+      }
+    }
+
+    async function handleRxUpload(event) {
+      const files = Array.from(event.target.files || []);
+      if (!files.length) return;
+      setRxStatus("Uploading Rx file(s)...", "ok");
+      try {
+        await Promise.all(files.map((file) => saveRxDoc({
+          id: `rx-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+          patientUhid: getRxPatientKey(),
+          name: file.name,
+          size: file.size,
+          mimeType: file.type || "application/octet-stream",
+          uploadedAt: new Date().toISOString(),
+          category: "Prescription / Rx",
+          blob: file
+        })));
+        await renderRxList();
+        setRxStatus(`${files.length} Rx file${files.length > 1 ? "s" : ""} uploaded for this patient.`, "ok");
+      } catch (error) {
+        console.error(error);
+        setRxStatus("Upload failed in this browser. Try a smaller PDF or image file.", "error");
+      } finally {
+        event.target.value = "";
+      }
+    }
+
+    async function openRxDoc(id) {
+      try {
+        const record = await getRxDoc(id);
+        if (!record?.blob) {
+          setRxStatus("This Rx file is no longer available in browser storage.", "error");
+          return;
+        }
+        const url = URL.createObjectURL(record.blob);
+        window.open(url, "_blank", "noopener,noreferrer");
+        window.setTimeout(() => URL.revokeObjectURL(url), 60_000);
+      } catch (error) {
+        console.error(error);
+        setRxStatus("Unable to open the selected Rx file.", "error");
+      }
+    }
+
+    async function removeRxDoc(id) {
+      try {
+        await deleteRxDoc(id);
+        await renderRxList();
+        setRxStatus("Rx file removed from this patient record.", "ok");
+      } catch (error) {
+        console.error(error);
+        setRxStatus("Unable to remove the selected Rx file.", "error");
+      }
+    }
+
+    function showTeamToast(message) {
+      const toast = document.getElementById("team-toast");
+      if (!toast) return;
+      toast.textContent = message;
+      toast.classList.add("on");
+      window.clearTimeout(teamToastTimer);
+      teamToastTimer = window.setTimeout(() => toast.classList.remove("on"), 2800);
+    }
+
+    function renderTeamNotificationLog() {
+      const list = document.getElementById("team-log-list");
+      if (!list) return;
+
+      const entries = loadTeamNotifications();
+      if (!entries.length) {
+        list.innerHTML = '<div class="log-empty">No team notifications sent for this patient yet.</div>';
+        return;
+      }
+
+      list.innerHTML = entries.map((entry) => `
+        <div class="log-entry">
+          <div class="log-entry-head">
+            <div>
+              <div class="log-entry-title">${escapeHtml(entry.subject || entry.reason || "Team discussion")}</div>
+              <div class="log-entry-meta">${escapeHtml(formatNotificationTime(entry.sentAt))} · ${escapeHtml(entry.sender)} · ${escapeHtml(entry.recipientLabel)}</div>
+            </div>
+            <span class="badge ${entry.recipientMode === "all" ? "b-blue" : "b-teal"}">${entry.recipientMode === "all" ? "All MDT" : "Specific member"}</span>
+          </div>
+          <div class="log-entry-body">${escapeHtml(entry.note || "No note provided.")}</div>
+          <div class="log-entry-next">
+            ${escapeHtml(entry.reason)}${entry.sourceTitle ? ` · Source: ${escapeHtml(entry.sourceTitle)}` : ""}${entry.includeSummary ? " · Summary link included" : ""}
+          </div>
+          <button type="button" class="team-link-btn" onclick="previewSavedNotification('${entry.id}')">Preview email</button>
+        </div>
+      `).join("");
+    }
+
+    function setTeamFormStatus(message = "", tone = "") {
+      const node = document.getElementById("team-form-status");
+      if (!node) return;
+      node.textContent = message;
+      node.className = `team-status${tone ? ` ${tone}` : ""}`;
+    }
+
+    function setTeamMemberStatus(message = "", tone = "") {
+      const node = document.getElementById("team-member-status");
+      if (!node) return;
+      node.textContent = message;
+      node.className = `team-status${tone ? ` ${tone}` : ""}`;
+    }
+
+    function renderTeamContextChips() {
+      const patient = getCurrentPatientContext();
+      const container = document.getElementById("log-context-chips");
+      if (!container) return;
+      const chips = [
+        `<span class="badge b-blue">${escapeHtml(patient.uhid)}</span>`,
+        `<span class="badge b-teal">${escapeHtml(patient.initials)}</span>`
+      ];
+      if (teamDiscussionContext.sourceType === "nudge" && teamDiscussionContext.sourceTitle) {
+        chips.push(`<span class="badge b-amber">Nudge: ${escapeHtml(teamDiscussionContext.sourceTitle)}</span>`);
+      } else {
+        chips.push('<span class="badge b-teal">Manual discussion</span>');
+      }
+      container.innerHTML = chips.join("");
+    }
+
+    function renderTeamSourceBox() {
+      const box = document.getElementById("team-source-box");
+      if (!box) return;
+      if (teamDiscussionContext.sourceType !== "nudge" || !teamDiscussionContext.sourceTitle) {
+        box.style.display = "none";
+        box.textContent = "";
+        return;
+      }
+      box.style.display = "block";
+      box.innerHTML = `<strong style="color:var(--tp);">${escapeHtml(teamDiscussionContext.sourceTitle)}</strong><br>${escapeHtml(teamDiscussionContext.sourceBody || "")}`;
+    }
+
+    function renderTeamSuggestions(results) {
+      const suggest = document.getElementById("team-suggest");
+      if (!suggest) return;
+      if (!results.length) {
+        suggest.classList.remove("on");
+        suggest.innerHTML = "";
+        return;
+      }
+      suggest.innerHTML = results.map((member, index) => `
+        <button type="button" class="team-suggest-item" onclick="selectTeamMember(${index})">
+          <div class="team-suggest-name">${escapeHtml(member.name)}</div>
+          <div class="team-suggest-meta">${escapeHtml(member.role)} · ${escapeHtml(member.email)}</div>
+        </button>
+      `).join("");
+      suggest.classList.add("on");
+    }
+
+    function applyTeamMember(member, persist = false) {
+      selectedTeamMember = member;
+      document.getElementById("team-member-name").value = member?.name || "";
+      document.getElementById("team-member-email").value = member?.email || "";
+      renderTeamSuggestions([]);
+      if (member) {
+        setTeamMemberStatus(`${member.role} · ${member.email}`, "ok");
+      } else {
+        setTeamMemberStatus("Search by name and pick the matching team member.");
+      }
+      if (persist && member) {
+        const prefs = getTeamPrefs();
+        saveTeamPrefs({ ...prefs, mode: currentTeamMode, memberName: member.name });
+      }
+    }
+
+    function selectTeamMember(index) {
+      const query = document.getElementById("team-member-name").value.trim().toLowerCase();
+      const results = TEAM_DIRECTORY.filter((member) =>
+        member.name.toLowerCase().includes(query) || member.role.toLowerCase().includes(query)
+      );
+      const member = results[index];
+      if (!member) return;
+      applyTeamMember(member, true);
+    }
+
+    function handleTeamMemberSearch() {
+      const query = document.getElementById("team-member-name").value.trim().toLowerCase();
+      if (!query) {
+        applyTeamMember(null);
+        renderTeamSuggestions([]);
+        return;
+      }
+
+      const exact = TEAM_DIRECTORY.find((member) => member.name.toLowerCase() === query);
+      if (exact) {
+        applyTeamMember(exact);
+        return;
+      }
+
+      if (!selectedTeamMember || selectedTeamMember.name.toLowerCase() !== query) {
+        selectedTeamMember = null;
+        document.getElementById("team-member-email").value = "";
+        setTeamMemberStatus("Choose the matching member from the directory.", "warn");
+      }
+
+      const results = TEAM_DIRECTORY.filter((member) =>
+        member.name.toLowerCase().includes(query) || member.role.toLowerCase().includes(query)
+      );
+      renderTeamSuggestions(results);
+    }
+
+    function setTeamMode(mode) {
+      currentTeamMode = mode;
+      document.querySelectorAll(".team-mode-btn").forEach((button) => {
+        button.classList.toggle("sel", button.dataset.teamMode === mode);
+      });
+      const memberFields = document.getElementById("team-member-fields");
+      const bulkNote = document.getElementById("team-bulk-note");
+      if (memberFields) memberFields.classList.toggle("on", mode === "member");
+      if (bulkNote) bulkNote.style.display = mode === "all" ? "block" : "none";
+      setTeamFormStatus("");
+    }
+
+    function openTeamModal(options = {}) {
+      const prefs = getTeamPrefs();
+      const patient = getCurrentPatientContext();
+      teamDiscussionContext = {
+        sourceType: options.sourceType || "manual",
+        sourceTitle: options.sourceTitle || "",
+        sourceBody: options.sourceBody || ""
+      };
+
+      const title = teamDiscussionContext.sourceType === "nudge" ? "Acknowledge Nudge & Notify Team" : "Discuss with Team";
+      const subtitle = teamDiscussionContext.sourceType === "nudge"
+        ? "Capture the nudge, notify the right people, and preserve the action in the patient discussion log."
+        : "Send a focused notification to the MDT or one team member and keep a visible audit trail on this patient file.";
+
+      document.getElementById("log-modal-title").textContent = title;
+      document.getElementById("log-modal-sub").textContent = subtitle;
+      renderTeamContextChips();
+      renderTeamSourceBox();
+
+      document.getElementById("team-reason").value = options.reason || prefs.reason || "";
+      document.getElementById("team-subject").value = options.subject || `${patient.fullName} — ${options.reason || "Clinical discussion"}`;
+      document.getElementById("team-note").value = options.note || "";
+      document.getElementById("team-include-summary").checked = true;
+      document.getElementById("team-preview-email").value = options.previewEmail || prefs.previewEmail || selectedTeamMember?.email || "";
+
+      const initialMode = options.mode || prefs.mode || "member";
+      setTeamMode(initialMode);
+      applyTeamMember(null);
+
+      if (initialMode === "member" && prefs.memberName) {
+        const remembered = TEAM_DIRECTORY.find((member) => member.name === prefs.memberName);
+        if (remembered) {
+          applyTeamMember(remembered);
+        }
+      }
+
+      setTeamFormStatus("");
+      document.getElementById("log-overlay").classList.add("on");
+      if (initialMode === "member") {
+        document.getElementById("team-member-name").focus();
+      } else {
+        document.getElementById("team-reason").focus();
+      }
+    }
+
+    function openTeamModalFromNudge(index) {
+      const nudge = latestNudges[index];
+      if (!nudge) return;
+      openTeamModal({
+        sourceType: "nudge",
+        sourceTitle: nudge.h,
+        sourceBody: stripHtml(nudge.b),
+        reason: nudge.t === "info" ? "FYI" : "Care gap",
+        subject: `${nudge.h} — requires discussion`,
+        note: `Please review this finding: ${stripHtml(nudge.b)}`,
+        mode: "all"
+      });
+    }
+
+    function logClose() {
+      document.getElementById("log-overlay").classList.remove("on");
+      renderTeamSuggestions([]);
+    }
+
+    function logOverlayClick(event) {
+      if (event.target === document.getElementById("log-overlay")) {
+        logClose();
+      }
+    }
+
+    function getPreviewEmail() {
+      return gv("team-preview-email").trim();
+    }
+
+    function buildNotificationPreviewPayload(overrides = {}) {
+      const patient = getCurrentPatientContext();
+      const reason = (overrides.reason || gv("team-reason")).trim();
+      const subject = (overrides.subject || gv("team-subject")).trim();
+      const note = (overrides.note || gv("team-note")).trim();
+      const toEmail = (overrides.toEmail || getPreviewEmail() || selectedTeamMember?.email || "").trim();
+      const includeSummary = typeof overrides.includeSummary === "boolean"
+        ? overrides.includeSummary
+        : document.getElementById("team-include-summary").checked;
+
+      if (!toEmail) {
+        setTeamFormStatus("Enter a demo recipient email to preview how the notification will be received.", "error");
+        return null;
+      }
+
+      if (!subject) {
+        setTeamFormStatus("Add a subject before previewing the received notification.", "error");
+        return null;
+      }
+
+      return {
+        subject,
+        note: note || "No note added.",
+        reason: reason || "Clinical discussion",
+        toEmail,
+        includeSummary,
+        sourceTitle: overrides.sourceTitle ?? teamDiscussionContext.sourceTitle,
+        recipientLabel: overrides.recipientLabel || (currentTeamMode === "all"
+          ? "Urology & Radiation Oncology MDT"
+          : (selectedTeamMember ? `${selectedTeamMember.name} · ${selectedTeamMember.role}` : "Specific team member")),
+        sender: "Dr. Anand Sharma",
+        senderRole: "Professor & HOD · Urology & Radiation Oncology",
+        sentAt: overrides.sentAt || new Date().toISOString(),
+        patient: patient
+      };
+    }
+
+    function renderNotificationPreview(payload) {
+      currentPreviewPayload = payload;
+      const body = document.getElementById("team-preview-body");
+      if (!body) return;
+
+      const sentAt = formatNotificationTime(payload.sentAt);
+      body.innerHTML = `
+        <div class="preview-mail">
+          <div class="preview-mail-top">
+            <div class="preview-mail-subject">${escapeHtml(payload.subject)}</div>
+            <div class="preview-mail-meta">
+              <strong>From</strong><span>Dr. Anand Sharma via ProstaCare India &lt;notifications@prostacare.demo&gt;</span>
+              <strong>To</strong><span>${escapeHtml(payload.toEmail)}</span>
+              <strong>Sent</strong><span>${escapeHtml(sentAt)}</span>
+              <strong>Topic</strong><span>${escapeHtml(payload.reason)} · ${escapeHtml(payload.recipientLabel)}</span>
+            </div>
+          </div>
+          <div class="preview-mail-content">
+            <div class="preview-mail-copy">
+              Dear colleague,<br><br>
+              Dr. Anand Sharma has flagged a prostate cancer case for discussion.<br><br>
+              <strong style="color:var(--tp);">Clinical note</strong><br>
+              ${escapeHtml(payload.note).replace(/\n/g, "<br>")}
+            </div>
+            <div class="preview-summary">
+              <div style="font-size:12px;font-weight:600;color:var(--tp);">Patient summary</div>
+              <div class="preview-summary-grid">
+                <div class="preview-kv">
+                  <div class="preview-kv-k">Patient</div>
+                  <div class="preview-kv-v">${escapeHtml(payload.patient.fullName)}</div>
+                </div>
+                <div class="preview-kv">
+                  <div class="preview-kv-k">UHID</div>
+                  <div class="preview-kv-v">${escapeHtml(payload.patient.uhid)}</div>
+                </div>
+                <div class="preview-kv">
+                  <div class="preview-kv-k">ABHA</div>
+                  <div class="preview-kv-v">${escapeHtml(payload.patient.abha)}</div>
+                </div>
+                <div class="preview-kv">
+                  <div class="preview-kv-k">Reason</div>
+                  <div class="preview-kv-v">${escapeHtml(payload.reason)}</div>
+                </div>
+              </div>
+              ${payload.sourceTitle ? `<div class="team-inline-note" style="margin-top:12px;"><strong style="color:var(--tp);">Flag source:</strong> ${escapeHtml(payload.sourceTitle)}</div>` : ""}
+              ${payload.includeSummary ? '<a href="#" class="preview-cta" onclick="return false;">Open secure patient summary</a>' : ""}
+            </div>
+            <div class="preview-disclaimer">
+              Demo preview only. In production, the platform would send this through the hospital notification service and log delivery against the patient record.
+            </div>
+          </div>
+        </div>
+      `;
+      document.getElementById("team-preview-overlay").classList.add("on");
+    }
+
+    function previewCurrentNotification() {
+      const payload = buildNotificationPreviewPayload();
+      if (!payload) return;
+      const prefs = getTeamPrefs();
+      saveTeamPrefs({
+        ...prefs,
+        mode: currentTeamMode,
+        memberName: selectedTeamMember?.name || prefs.memberName || "",
+        reason: gv("team-reason"),
+        previewEmail: payload.toEmail
+      });
+      setTeamFormStatus("");
+      renderNotificationPreview(payload);
+    }
+
+    function previewSavedNotification(entryId) {
+      const entry = loadTeamNotifications().find((item) => item.id === entryId);
+      if (!entry) return;
+      const prefs = getTeamPrefs();
+      const toEmail = prefs.previewEmail || entry.recipients?.[0]?.email || "";
+      const payload = buildNotificationPreviewPayload({
+        subject: entry.subject,
+        note: entry.note,
+        reason: entry.reason,
+        sourceTitle: entry.sourceTitle,
+        includeSummary: entry.includeSummary,
+        recipientLabel: entry.recipientLabel,
+        sentAt: entry.sentAt,
+        toEmail
+      });
+      if (!payload) return;
+      renderNotificationPreview(payload);
+    }
+
+    function closeTeamPreview() {
+      document.getElementById("team-preview-overlay").classList.remove("on");
+    }
+
+    function teamPreviewOverlayClick(event) {
+      if (event.target === document.getElementById("team-preview-overlay")) {
+        closeTeamPreview();
+      }
+    }
+
+    function sendTeamNotification() {
+      const patient = getCurrentPatientContext();
+      const reason = gv("team-reason");
+      const subject = gv("team-subject").trim();
+      const note = gv("team-note").trim();
+      const previewEmail = getPreviewEmail();
+
+      if (!reason) {
+        setTeamFormStatus("Select a discussion reason before sending the notification.", "error");
+        return;
+      }
+
+      if (!subject) {
+        setTeamFormStatus("Add a short subject line for the notification.", "error");
+        return;
+      }
+
+      if (currentTeamMode === "member" && !selectedTeamMember) {
+        setTeamFormStatus("Choose a specific team member so the system can resolve the email address.", "error");
+        return;
+      }
+
+      const recipients = currentTeamMode === "all" ? TEAM_DIRECTORY : [selectedTeamMember];
+      const recipientLabel = currentTeamMode === "all"
+        ? `All MDT members (${TEAM_DIRECTORY.length})`
+        : `${selectedTeamMember.name} · ${selectedTeamMember.email}`;
+
+      const entry = {
+        id: `notif-${Date.now()}`,
+        sender: "Dr. Anand Sharma",
+        sentAt: new Date().toISOString(),
+        recipientMode: currentTeamMode,
+        recipientLabel,
+        reason,
+        subject,
+        note,
+        includeSummary: document.getElementById("team-include-summary").checked,
+        sourceType: teamDiscussionContext.sourceType,
+        sourceTitle: teamDiscussionContext.sourceTitle,
+        patientUhid: patient.uhid,
+        recipients: recipients.map((member) => ({ name: member.name, email: member.email }))
+      };
+
+      const entries = loadTeamNotifications();
+      entries.unshift(entry);
+      saveTeamNotifications(entries);
+      saveTeamPrefs({
+        mode: currentTeamMode,
+        memberName: selectedTeamMember?.name || "",
+        reason,
+        previewEmail
+      });
+
+      renderTeamNotificationLog();
+      computeNudges();
+      logClose();
+      showTeamToast(`Notification sent to ${currentTeamMode === "all" ? `all ${TEAM_DIRECTORY.length} MDT members` : selectedTeamMember.name}.`);
+    }
+
     function getPatientPayload() {
       try {
         const raw = new URLSearchParams(window.location.search).get("patient");
@@ -3511,6 +4787,18 @@
     function applyPatientRecordFromQuery() {
       const params = new URLSearchParams(window.location.search);
       if (params.get("new") === "true") {
+        currentPatientContext = {
+          ...DEFAULT_PATIENT,
+          fullName: "New Patient",
+          shortName: "New Patient",
+          initials: "??",
+          uhid: "Pending UHID",
+          abha: "Pending",
+          phone: "",
+          dobLabel: "",
+          dobIso: "",
+          age: ""
+        };
         resetFormForNewPatient();
         setPatientNameVisibility(true);
         return;
@@ -3519,16 +4807,18 @@
       const selected = getPatientPayload();
       if (!selected) return;
 
-      const age = Number(selected.age) || DEFAULT_PATIENT.age;
+      currentPatientContext = normalizePatientContext(selected);
+
+      const age = Number(currentPatientContext.age) || DEFAULT_PATIENT.age;
       const replacements = [
-        [DEFAULT_PATIENT.fullName, selected.fullName || selected.name || DEFAULT_PATIENT.fullName],
-        [DEFAULT_PATIENT.shortName, selected.shortName || selected.fullName || selected.name || DEFAULT_PATIENT.shortName],
-        [DEFAULT_PATIENT.initials, selected.initials || DEFAULT_PATIENT.initials],
-        [DEFAULT_PATIENT.uhid, selected.uhid || selected.id || DEFAULT_PATIENT.uhid],
-        [DEFAULT_PATIENT.abha, selected.abha || DEFAULT_PATIENT.abha],
-        [DEFAULT_PATIENT.phone, selected.phone || DEFAULT_PATIENT.phone],
-        [DEFAULT_PATIENT.dobLabel, selected.dobLabel || DEFAULT_PATIENT.dobLabel],
-        [DEFAULT_PATIENT.dobIso, selected.dobIso || DEFAULT_PATIENT.dobIso],
+        [DEFAULT_PATIENT.fullName, currentPatientContext.fullName],
+        [DEFAULT_PATIENT.shortName, currentPatientContext.shortName],
+        [DEFAULT_PATIENT.initials, currentPatientContext.initials],
+        [DEFAULT_PATIENT.uhid, currentPatientContext.uhid],
+        [DEFAULT_PATIENT.abha, currentPatientContext.abha],
+        [DEFAULT_PATIENT.phone, currentPatientContext.phone],
+        [DEFAULT_PATIENT.dobLabel, currentPatientContext.dobLabel],
+        [DEFAULT_PATIENT.dobIso, currentPatientContext.dobIso],
         [`${DEFAULT_PATIENT.age} years`, `${age} years`],
         [`${DEFAULT_PATIENT.age} yrs`, `${age} yrs`],
         [`${DEFAULT_PATIENT.age} yr`, `${age} yr`]
@@ -3661,12 +4951,20 @@
         tag: "Reminder"
       });
 
+      latestNudges = nudges;
+
       const container = document.getElementById("nudge-container");
       if (!container) {
         return;
       }
 
-      container.innerHTML = nudges.map((nudge) => `
+      const loggedTitles = new Set(
+        loadTeamNotifications()
+          .filter((entry) => entry.sourceType === "nudge" && entry.sourceTitle)
+          .map((entry) => entry.sourceTitle)
+      );
+
+      container.innerHTML = nudges.map((nudge, index) => `
     <div class="nudge-card ${nudge.t}">
       <div class="nc-dot"></div>
       <div style="flex:1;min-width:0;">
@@ -3675,7 +4973,7 @@
           <span class="nc-tag">${nudge.tag}</span>
         </div>
         <div class="nc-body">${nudge.b}</div>
-        <span class="nc-action">Acknowledge &amp; log →</span>
+        <button type="button" class="nc-action ${loggedTitles.has(nudge.h) ? "logged" : ""}" onclick="openTeamModalFromNudge(${index})">${loggedTitles.has(nudge.h) ? "Logged with team →" : "Acknowledge &amp; log →"}</button>
       </div>
     </div>`).join("");
 
@@ -3822,8 +5120,22 @@
       if (dd && dd.classList.contains('show') && !e.target.closest('#gl-dd-container')) {
         dd.classList.remove('show');
       }
+      if (!e.target.closest('.team-search-wrap')) {
+        renderTeamSuggestions([]);
+      }
     });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') glClose(); });
+    document.addEventListener('keydown', e => {
+      if (e.key !== 'Escape') return;
+      if (document.getElementById('team-preview-overlay')?.classList.contains('on')) {
+        closeTeamPreview();
+        return;
+      }
+      if (document.getElementById('log-overlay')?.classList.contains('on')) {
+        logClose();
+        return;
+      }
+      glClose();
+    });
 
     function resetFormForNewPatient() {
       document.querySelectorAll('input[type="text"], input[type="tel"], input[type="email"], input[type="date"], input[type="number"], textarea').forEach(el => {
@@ -3851,10 +5163,15 @@
       if (alertBanner) alertBanner.style.display = 'none';
       const containers = document.querySelectorAll('#nudge-container, .log-list');
       containers.forEach(c => c.innerHTML = '<div class="log-empty">No clinical data recorded for this new profile.</div>');
+      renderTeamNotificationLog();
+      renderRxList();
+      setRxStatus("");
     }
 
     window.addEventListener("load", () => {
       applyPatientRecordFromQuery();
+      renderTeamNotificationLog();
+      renderRxList();
       const params = new URLSearchParams(window.location.search);
       if (params.get('new') !== 'true') {
         setPatientNameVisibility(false);
