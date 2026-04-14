@@ -2790,6 +2790,108 @@
       font-size: 12px;
     }
 
+    #home-drill-content {
+      display: none;
+      padding: 1rem 1.5rem 1.5rem;
+    }
+
+    .home-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .home-guide-card {
+      background: #FCFBFF;
+      border: 1px solid #ECE7F7;
+      border-radius: 16px;
+      padding: 1rem 1rem 1.05rem;
+    }
+
+    .home-guide-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .home-guide-chip.nccn {
+      background: #F1EDFF;
+      border: 1px solid #DED4FA;
+      color: #6B4ED4;
+    }
+
+    .home-guide-chip.india {
+      background: #ECFBF4;
+      border: 1px solid #CDECD9;
+      color: #0E9E6A;
+    }
+
+    .home-guide-chip.demo {
+      background: #FFF5E9;
+      border: 1px solid #F5D6A9;
+      color: #D97B0E;
+    }
+
+    .home-guide-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1A1340;
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+
+    .home-guide-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .home-guide-item {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      font-size: 12px;
+      color: #5A5280;
+      line-height: 1.55;
+    }
+
+    .home-guide-item strong {
+      color: #1A1340;
+    }
+
+    .home-guide-bullet {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    .home-guide-bullet.nccn {
+      background: #7B61D6;
+    }
+
+    .home-guide-bullet.india {
+      background: #0E9E6A;
+    }
+
+    .home-guide-bullet.demo {
+      background: #D97B0E;
+    }
+
+    @media (max-width: 1080px) {
+      .home-guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* ─── GUIDELINE BANNER ─── */
     .gl-banner {
       background: linear-gradient(90deg, #F0ECFF, #FAF8FF);
@@ -3974,9 +4076,10 @@
         <button id="home-drill-close" type="button" onclick="closeHomeDrill()">×</button>
       </div>
       <div id="home-drill-meta"></div>
-      <div class="home-drill-note">Click a patient name or use <strong>Open file</strong> to view the patient record.
+      <div class="home-drill-note" id="home-drill-note">Click a patient name or use <strong>Open file</strong> to view the patient record.
         The viewer will return you to this table.</div>
-      <div class="home-drill-table-wrap">
+      <div id="home-drill-content"></div>
+      <div class="home-drill-table-wrap" id="home-drill-table-wrap">
         <table class="home-drill-table">
           <thead id="home-drill-thead"></thead>
           <tbody id="home-drill-tbody"></tbody>
@@ -4729,6 +4832,7 @@
     }
 
     let homeDrillRegistry = {};
+    const defaultHomeDrillNote = 'Click a patient name or use <strong>Open file</strong> to view the patient record. The viewer will return you to this table.';
     let activeHomeDrill = null;
 
     function makeHomeDrillPatient(source, overrides = {}) {
@@ -5214,6 +5318,9 @@
       const title = document.getElementById('home-drill-title');
       const subtitle = document.getElementById('home-drill-subtitle');
       const meta = document.getElementById('home-drill-meta');
+      const note = document.getElementById('home-drill-note');
+      const content = document.getElementById('home-drill-content');
+      const tableWrap = document.getElementById('home-drill-table-wrap');
       const thead = document.getElementById('home-drill-thead');
       const tbody = document.getElementById('home-drill-tbody');
       if (!title || !subtitle || !meta || !thead || !tbody || !config) return;
@@ -5226,6 +5333,29 @@
           <span>${escapeHtml(stat.label)}</span>
         </div>
       `).join('');
+
+      if (note) {
+        if (config.note === false) {
+          note.style.display = 'none';
+        } else {
+          note.style.display = 'block';
+          note.innerHTML = config.note || defaultHomeDrillNote;
+        }
+      }
+
+      const hasCustomContent = Boolean(config.contentHtml);
+      if (content) {
+        content.innerHTML = hasCustomContent ? config.contentHtml : '';
+        content.style.display = hasCustomContent ? 'block' : 'none';
+      }
+      if (tableWrap) {
+        tableWrap.style.display = hasCustomContent ? 'none' : 'block';
+      }
+      if (hasCustomContent) {
+        thead.innerHTML = '';
+        tbody.innerHTML = '';
+        return;
+      }
 
       thead.innerHTML = `<tr>${config.columns.map((column) => `<th>${escapeHtml(column.label)}</th>`).join('')}<th>Action</th></tr>`;
 
@@ -5266,6 +5396,55 @@
       activeHomeDrill = config;
       renderHomeDrill(config);
       document.getElementById('home-drill-overlay')?.classList.add('on');
+    }
+
+    function buildGuidelineDrillConfig(tabId = 'nccn') {
+      const primary = tabId === 'india' ? 'India practice' : 'NCCN 2024';
+      return {
+        title: 'Clinical Guidelines Quick Reference',
+        subtitle: `${primary} summary for the current demo discussion.`,
+        stats: [
+          { label: 'Focus', value: 'High risk staging', tone: 'purple' },
+          { label: 'Imaging shift', value: 'PSMA PET-CT', tone: 'teal' },
+          { label: 'Protocol signal', value: '63 care gaps', tone: 'red' }
+        ],
+        note: 'Use this quick reference to explain why the home-page care-gap and benchmark signals matter clinically.',
+        contentHtml: `
+          <div class="home-guide-grid">
+            <section class="home-guide-card">
+              <span class="home-guide-chip nccn">NCCN 2024</span>
+              <div class="home-guide-title">What changed in the current guideline signal</div>
+              <div class="home-guide-list">
+                <div class="home-guide-item"><span class="home-guide-bullet nccn"></span><span><strong>PSMA PET-CT is preferred</strong> for initial staging in unfavorable intermediate, high-risk, and very-high-risk disease when available.</span></div>
+                <div class="home-guide-item"><span class="home-guide-bullet nccn"></span><span><strong>ARSI intensification is expected earlier</strong> in high-risk hormone-sensitive pathways than many local workflows currently achieve.</span></div>
+                <div class="home-guide-item"><span class="home-guide-bullet nccn"></span><span><strong>Genomic testing thresholds are broader,</strong> especially when family history or advanced disease affects PARP eligibility.</span></div>
+              </div>
+            </section>
+            <section class="home-guide-card">
+              <span class="home-guide-chip india">India practice</span>
+              <div class="home-guide-title">How this translates into operational care delivery</div>
+              <div class="home-guide-list">
+                <div class="home-guide-item"><span class="home-guide-bullet india"></span><span>Many centers still depend on <strong>CT plus bone scan</strong> because PSMA access and payer approvals delay staging completion.</span></div>
+                <div class="home-guide-item"><span class="home-guide-bullet india"></span><span><strong>MDT review and treatment sequencing</strong> need to account for CGHS or PMJAY turnaround, especially before RT start.</span></div>
+                <div class="home-guide-item"><span class="home-guide-bullet india"></span><span><strong>Bone health measures should begin with ADT,</strong> not later: DEXA, calcium/Vit D, and bone protection when indicated.</span></div>
+              </div>
+            </section>
+            <section class="home-guide-card">
+              <span class="home-guide-chip demo">Demo talking points</span>
+              <div class="home-guide-title">Why the dashboard flags these patients</div>
+              <div class="home-guide-list">
+                <div class="home-guide-item"><span class="home-guide-bullet demo"></span><span><strong>PSMA PET-CT missing</strong> is not just a documentation issue. It can change nodal field design and staging certainty.</span></div>
+                <div class="home-guide-item"><span class="home-guide-bullet demo"></span><span><strong>Bone protection gaps on ADT</strong> are clinically material and drive the protocol adherence score downward.</span></div>
+                <div class="home-guide-item"><span class="home-guide-bullet demo"></span><span>Use the dashboard to move from this summary into the cohort-level quality view when the audience asks which patients are affected.</span></div>
+              </div>
+            </section>
+          </div>
+        `
+      };
+    }
+
+    function glOpen(tabId = 'nccn') {
+      openHomeDrill(buildGuidelineDrillConfig(tabId));
     }
 
     function closeHomeDrill(clearState = true) {
