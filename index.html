@@ -1502,6 +1502,8 @@
       border: 1px solid rgba(255, 255, 255, .46);
       box-shadow: 0 12px 24px rgba(40, 24, 112, .08);
       backdrop-filter: blur(10px);
+      position: relative;
+      isolation: isolate;
     }
 
     .home-pulse-ring strong {
@@ -1525,6 +1527,27 @@
 
     .home-pulse-ring.red strong,
     .home-pulse-ring.red span {
+      color: #C93030;
+    }
+
+    .home-pulse-ring.urgent {
+      background: linear-gradient(180deg, rgba(255, 242, 244, .98), rgba(255, 228, 232, .94));
+      border-color: rgba(211, 75, 82, .32);
+      box-shadow: 0 14px 28px rgba(211, 75, 82, .2);
+    }
+
+    .home-pulse-ring.urgent::after {
+      content: '';
+      position: absolute;
+      inset: -7px;
+      border-radius: 50%;
+      border: 1px solid rgba(211, 75, 82, .18);
+      box-shadow: 0 0 0 8px rgba(211, 75, 82, .06), 0 0 26px rgba(211, 75, 82, .18);
+      z-index: -1;
+    }
+
+    .home-pulse-ring.urgent strong,
+    .home-pulse-ring.urgent span {
       color: #C93030;
     }
 
@@ -5608,7 +5631,7 @@
           label: 'Pending nudges',
           value: extractLeadingNumber(gapStat?.value),
           sublabel: 'active',
-          tone: 'purple',
+          tone: 'urgent',
           onClick: () => openPopulationDashboard('quality', 'quality-top')
         },
         {
