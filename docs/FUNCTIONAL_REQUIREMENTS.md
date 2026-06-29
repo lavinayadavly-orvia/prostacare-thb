@@ -34,7 +34,7 @@
 | --- | --- | --- | --- |
 | FR-030 | Display a list of available patient records. | Must | Implemented with sample records. |
 | FR-031 | Search patients by available demographic or clinical identifiers. | Must | Implemented. |
-| FR-032 | Filter patient queues by status such as arrived, soon, or urgent. | Should | Implemented. |
+| FR-032 | Filter patient queues by visit status such as last visit, upcoming/planned, or missed/overdue. | Should | Implemented. |
 | FR-033 | Provide a privacy toggle to hide or reveal patient names. | Must | Implemented. |
 | FR-034 | Open a selected patient record from the queue. | Must | Implemented. |
 | FR-035 | Start a new patient onboarding flow. | Should | Implemented as demo modal. |
